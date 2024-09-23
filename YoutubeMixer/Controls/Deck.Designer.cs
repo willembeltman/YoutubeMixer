@@ -1,4 +1,4 @@
-﻿using YoutubeMixer.Forms.Controls;
+﻿using YoutubeMixer.Controls;
 
 namespace YoutubeMixer.UserControls
 {

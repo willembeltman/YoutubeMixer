@@ -1,4 +1,4 @@
-﻿using YoutubeMixer.Forms.Controls;
+﻿using YoutubeMixer.Controls;
 
 namespace YoutubeMixer.UserControls
 {
@@ -30,7 +30,7 @@ namespace YoutubeMixer.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            VuMeter = new VuMeter();
+            VuMeter = new VuMeterControl();
             EqBassControl = new EqualizerControl();
             EqMidControl = new EqualizerControl();
             EqHighControl = new EqualizerControl();
@@ -129,7 +129,7 @@ namespace YoutubeMixer.UserControls
 
         #endregion
 
-        private VuMeter VuMeter;
+        private VuMeterControl VuMeter;
         private EqualizerControl EqBassControl;
         private EqualizerControl EqMidControl;
         private EqualizerControl EqHighControl;

@@ -1,12 +1,12 @@
 ﻿using YoutubeMixer.Library.Interfaces;
 
-namespace YoutubeMixer.Forms.Controls
+namespace YoutubeMixer.Controls
 {
-    public partial class VuMeter : Control
+    public partial class VuMeterControl : Control
     {
         private const int NumLeds = 12;
 
-        public VuMeter()
+        public VuMeterControl()
         {
             DoubleBuffered = true;
             Resize += VuMeter_Resize;

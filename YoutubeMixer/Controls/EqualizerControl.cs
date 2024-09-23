@@ -1,4 +1,4 @@
-﻿namespace YoutubeMixer.Forms.Controls
+﻿namespace YoutubeMixer.Controls
 {
     public class EqualizerControl : Control
     {

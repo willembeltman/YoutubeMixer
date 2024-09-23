@@ -6,15 +6,6 @@ using YoutubeMixer.Library.Models;
 
 namespace YoutubeMixer.Library.AudioSources
 {
-    /// <summary>
-    /// Todo:
-    /// - Mixer aansluiten / berekenen
-    /// - Pitch range aansluiten
-    /// - Pitch aansluiten
-    /// - Pitch control aansluiten
-    /// - Hele cue systeem
-    /// </summary>
-
     public class YoutubeAudioSource : IAudioSource, IDisposable
     {
         public YoutubeAudioSource(IPitchBendController pitchBendController, ITimelineProcessor timelineProcessor)

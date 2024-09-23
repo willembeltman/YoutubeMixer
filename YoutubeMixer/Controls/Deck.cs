@@ -1,4 +1,4 @@
-﻿using YoutubeMixer.Forms.Controls;
+﻿using YoutubeMixer.Controls;
 using YoutubeMixer.Library.Interfaces;
 using YoutubeMixer.Library.Models;
 

@@ -2,7 +2,7 @@
 using YoutubeMixer.Library.Models;
 using YoutubeMixer.Properties;
 
-namespace YoutubeMixer.Forms.Controls
+namespace YoutubeMixer.Controls
 {
     public class DisplayControl : Control, ITimelineProcessor
     {
