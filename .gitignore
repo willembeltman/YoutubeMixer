@@ -74,7 +74,6 @@ UnityGenerated/
 
 # Ignore TypeScript output
 **/*.tsbuildinfo
-**/*.js
 **/*.js.map
 **/*.d.ts
 
@@ -118,3 +117,4 @@ Desktop.ini
 
 # Ignore media files
 *.mp4
+*.exe
