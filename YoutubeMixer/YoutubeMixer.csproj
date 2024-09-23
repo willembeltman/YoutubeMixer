@@ -46,4 +46,10 @@
     <Folder Include="Resources\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Library\AudioSources\YoutubeScript.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
