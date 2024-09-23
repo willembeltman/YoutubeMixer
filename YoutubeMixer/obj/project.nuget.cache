@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "b18NRekI9MI=",
+  "success": true,
+  "projectFilePath": "D:\\Project-Public\\YoutubeMixer\\YoutubeMixer\\YoutubeMixer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\wille\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\wille\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\wille\\.nuget\\packages\\selenium.support\\4.15.0\\selenium.support.4.15.0.nupkg.sha512",
+    "C:\\Users\\wille\\.nuget\\packages\\selenium.webdriver\\4.15.0\\selenium.webdriver.4.15.0.nupkg.sha512",
+    "C:\\Users\\wille\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
