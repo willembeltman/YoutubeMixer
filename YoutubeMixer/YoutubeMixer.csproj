@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Selenium.Support" Version="4.15.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.15.0" />
+    <PackageReference Include="Selenium.Support" Version="4.25.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.25.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +47,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\YoutubeMixer.ChromeDriverDownloader\YoutubeMixer.ChromeDriverDownloader.csproj" />
+    <ProjectReference Include="..\YoutubeMixer.WindowManager\YoutubeMixer.WindowManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="chromedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Library\AudioSources\YoutubeScript.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

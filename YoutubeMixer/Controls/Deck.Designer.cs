@@ -51,10 +51,9 @@ namespace YoutubeMixer.UserControls
             labelPitch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             labelPitch.AutoSize = true;
             labelPitch.Font = new Font("Arial", 8F);
-            labelPitch.Location = new Point(538, 486);
-            labelPitch.Margin = new Padding(2, 0, 2, 0);
+            labelPitch.Location = new Point(769, 810);
             labelPitch.Name = "labelPitch";
-            labelPitch.Size = new Size(23, 14);
+            labelPitch.Size = new Size(31, 18);
             labelPitch.TabIndex = 16;
             labelPitch.Text = "0%";
             // 
@@ -63,10 +62,9 @@ namespace YoutubeMixer.UserControls
             buttonPitchControl.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonPitchControl.BackColor = SystemColors.ButtonHighlight;
             buttonPitchControl.Font = new Font("Arial", 5F);
-            buttonPitchControl.Location = new Point(535, 20);
-            buttonPitchControl.Margin = new Padding(2);
+            buttonPitchControl.Location = new Point(764, 33);
             buttonPitchControl.Name = "buttonPitchControl";
-            buttonPitchControl.Size = new Size(60, 16);
+            buttonPitchControl.Size = new Size(86, 27);
             buttonPitchControl.TabIndex = 13;
             buttonPitchControl.Text = "PitchControl";
             buttonPitchControl.UseVisualStyleBackColor = false;
@@ -76,10 +74,9 @@ namespace YoutubeMixer.UserControls
             // 
             buttonPitchRange.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonPitchRange.Font = new Font("Arial", 8F, FontStyle.Bold);
-            buttonPitchRange.Location = new Point(535, 0);
-            buttonPitchRange.Margin = new Padding(2);
+            buttonPitchRange.Location = new Point(764, 0);
             buttonPitchRange.Name = "buttonPitchRange";
-            buttonPitchRange.Size = new Size(60, 22);
+            buttonPitchRange.Size = new Size(86, 37);
             buttonPitchRange.TabIndex = 14;
             buttonPitchRange.Text = "16%";
             buttonPitchRange.UseVisualStyleBackColor = true;
@@ -88,10 +85,9 @@ namespace YoutubeMixer.UserControls
             // buttonSetHotcue
             // 
             buttonSetHotcue.Font = new Font("Arial", 5F);
-            buttonSetHotcue.Location = new Point(0, 166);
-            buttonSetHotcue.Margin = new Padding(2);
+            buttonSetHotcue.Location = new Point(0, 277);
             buttonSetHotcue.Name = "buttonSetHotcue";
-            buttonSetHotcue.Size = new Size(60, 16);
+            buttonSetHotcue.Size = new Size(86, 27);
             buttonSetHotcue.TabIndex = 15;
             buttonSetHotcue.Text = "Set Hotcue";
             buttonSetHotcue.UseVisualStyleBackColor = true;
@@ -101,10 +97,9 @@ namespace YoutubeMixer.UserControls
             // 
             buttonCue.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             buttonCue.Font = new Font("Arial", 8F);
-            buttonCue.Location = new Point(0, 422);
-            buttonCue.Margin = new Padding(2);
+            buttonCue.Location = new Point(0, 703);
             buttonCue.Name = "buttonCue";
-            buttonCue.Size = new Size(60, 38);
+            buttonCue.Size = new Size(86, 63);
             buttonCue.TabIndex = 7;
             buttonCue.Text = "Cue";
             buttonCue.UseVisualStyleBackColor = true;
@@ -114,10 +109,9 @@ namespace YoutubeMixer.UserControls
             // 
             buttonPlayPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             buttonPlayPause.Font = new Font("Arial", 8F);
-            buttonPlayPause.Location = new Point(0, 464);
-            buttonPlayPause.Margin = new Padding(2);
+            buttonPlayPause.Location = new Point(0, 773);
             buttonPlayPause.Name = "buttonPlayPause";
-            buttonPlayPause.Size = new Size(60, 38);
+            buttonPlayPause.Size = new Size(86, 63);
             buttonPlayPause.TabIndex = 8;
             buttonPlayPause.Text = "Play";
             buttonPlayPause.UseVisualStyleBackColor = true;
@@ -126,10 +120,9 @@ namespace YoutubeMixer.UserControls
             // buttonHotcue4
             // 
             buttonHotcue4.Font = new Font("Arial", 8F);
-            buttonHotcue4.Location = new Point(0, 124);
-            buttonHotcue4.Margin = new Padding(2);
+            buttonHotcue4.Location = new Point(0, 207);
             buttonHotcue4.Name = "buttonHotcue4";
-            buttonHotcue4.Size = new Size(60, 38);
+            buttonHotcue4.Size = new Size(86, 63);
             buttonHotcue4.TabIndex = 9;
             buttonHotcue4.Text = "Hotcue 4";
             buttonHotcue4.UseVisualStyleBackColor = true;
@@ -138,10 +131,9 @@ namespace YoutubeMixer.UserControls
             // buttonHotcue3
             // 
             buttonHotcue3.Font = new Font("Arial", 8F);
-            buttonHotcue3.Location = new Point(0, 83);
-            buttonHotcue3.Margin = new Padding(2);
+            buttonHotcue3.Location = new Point(0, 138);
             buttonHotcue3.Name = "buttonHotcue3";
-            buttonHotcue3.Size = new Size(60, 38);
+            buttonHotcue3.Size = new Size(86, 63);
             buttonHotcue3.TabIndex = 10;
             buttonHotcue3.Text = "Hotcue 3";
             buttonHotcue3.UseVisualStyleBackColor = true;
@@ -150,10 +142,9 @@ namespace YoutubeMixer.UserControls
             // buttonHotcue2
             // 
             buttonHotcue2.Font = new Font("Arial", 8F);
-            buttonHotcue2.Location = new Point(0, 41);
-            buttonHotcue2.Margin = new Padding(2);
+            buttonHotcue2.Location = new Point(0, 68);
             buttonHotcue2.Name = "buttonHotcue2";
-            buttonHotcue2.Size = new Size(60, 38);
+            buttonHotcue2.Size = new Size(86, 63);
             buttonHotcue2.TabIndex = 11;
             buttonHotcue2.Text = "Hotcue 2";
             buttonHotcue2.UseVisualStyleBackColor = true;
@@ -163,9 +154,8 @@ namespace YoutubeMixer.UserControls
             // 
             buttonHotcue1.Font = new Font("Arial", 8F);
             buttonHotcue1.Location = new Point(0, 0);
-            buttonHotcue1.Margin = new Padding(2);
             buttonHotcue1.Name = "buttonHotcue1";
-            buttonHotcue1.Size = new Size(60, 38);
+            buttonHotcue1.Size = new Size(86, 63);
             buttonHotcue1.TabIndex = 12;
             buttonHotcue1.Text = "Hotcue 1";
             buttonHotcue1.UseVisualStyleBackColor = true;
@@ -174,13 +164,12 @@ namespace YoutubeMixer.UserControls
             // trackBarPitch
             // 
             trackBarPitch.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            trackBarPitch.Location = new Point(533, 41);
-            trackBarPitch.Margin = new Padding(2);
+            trackBarPitch.Location = new Point(761, 68);
             trackBarPitch.Maximum = 10000;
             trackBarPitch.Name = "trackBarPitch";
             trackBarPitch.Orientation = Orientation.Vertical;
             trackBarPitch.RightToLeft = RightToLeft.Yes;
-            trackBarPitch.Size = new Size(45, 443);
+            trackBarPitch.Size = new Size(69, 738);
             trackBarPitch.TabIndex = 5;
             trackBarPitch.TickStyle = TickStyle.Both;
             trackBarPitch.Value = 5000;
@@ -190,10 +179,9 @@ namespace YoutubeMixer.UserControls
             // 
             DisplayControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DisplayControl.AudioSource = null;
-            DisplayControl.Location = new Point(65, 0);
-            DisplayControl.Margin = new Padding(2);
+            DisplayControl.Location = new Point(-432, -68);
             DisplayControl.Name = "DisplayControl";
-            DisplayControl.Size = new Size(468, 501);
+            DisplayControl.Size = new Size(669, 835);
             DisplayControl.TabIndex = 17;
             DisplayControl.Text = "displayControl1";
             DisplayControl.MouseDown += PlaybackDisplay_MouseDown;
@@ -202,7 +190,7 @@ namespace YoutubeMixer.UserControls
             // 
             // Deck
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(DisplayControl);
             Controls.Add(labelPitch);
@@ -216,9 +204,8 @@ namespace YoutubeMixer.UserControls
             Controls.Add(buttonHotcue2);
             Controls.Add(buttonHotcue1);
             Controls.Add(trackBarPitch);
-            Margin = new Padding(2);
             Name = "Deck";
-            Size = new Size(584, 501);
+            Size = new Size(834, 835);
             Load += Deck_Load;
             Resize += Deck_Resize;
             ((System.ComponentModel.ISupportInitialize)trackBarPitch).EndInit();

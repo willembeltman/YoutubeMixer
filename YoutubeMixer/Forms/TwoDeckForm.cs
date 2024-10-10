@@ -7,15 +7,15 @@ namespace YoutubeMixer.Forms
         public YoutubeAudioSource LeftAudioSource { get; }
         public YoutubeAudioSource RightAudioSource { get; }
 
-        public TwoDeckForm()
+        public TwoDeckForm(string driverPath)
         {
             InitializeComponent();
 
-            LeftAudioSource = new YoutubeAudioSource(DeckLeft, DeckLeft);
+            LeftAudioSource = new YoutubeAudioSource(driverPath, DeckLeft, DeckLeft);
             Mixer.LeftMixerChannel.AudioSource = LeftAudioSource;
             DeckLeft.AudioSource = LeftAudioSource;
 
-            RightAudioSource = new YoutubeAudioSource(DeckRight, DeckRight );
+            RightAudioSource = new YoutubeAudioSource(driverPath, DeckRight, DeckRight);
             Mixer.RightMixerChannel.AudioSource = RightAudioSource;
             DeckRight.AudioSource = RightAudioSource;
 
@@ -34,7 +34,7 @@ namespace YoutubeMixer.Forms
                 Mixer.InitializeDraw();
             }
             catch (Exception ex)
-            { 
+            {
             }
         }
 

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeMixer", "YoutubeMixer\YoutubeMixer.csproj", "{BAD7CAEA-17FF-4A65-AD8C-57F5F2BB1A4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YoutubeMixer", "YoutubeMixer\YoutubeMixer.csproj", "{BAD7CAEA-17FF-4A65-AD8C-57F5F2BB1A4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeMixer.ChromeDriverDownloader", "YoutubeMixer.ChromeDriverDownloader\YoutubeMixer.ChromeDriverDownloader.csproj", "{466CA4D5-B080-4535-87FB-B0DAFEB03B70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeMixer.WindowManager", "YoutubeMixer.WindowManager\YoutubeMixer.WindowManager.csproj", "{67CD104D-863F-4754-9DA4-3753E07D5F6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{BAD7CAEA-17FF-4A65-AD8C-57F5F2BB1A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAD7CAEA-17FF-4A65-AD8C-57F5F2BB1A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAD7CAEA-17FF-4A65-AD8C-57F5F2BB1A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466CA4D5-B080-4535-87FB-B0DAFEB03B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466CA4D5-B080-4535-87FB-B0DAFEB03B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466CA4D5-B080-4535-87FB-B0DAFEB03B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466CA4D5-B080-4535-87FB-B0DAFEB03B70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67CD104D-863F-4754-9DA4-3753E07D5F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67CD104D-863F-4754-9DA4-3753E07D5F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67CD104D-863F-4754-9DA4-3753E07D5F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67CD104D-863F-4754-9DA4-3753E07D5F6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
