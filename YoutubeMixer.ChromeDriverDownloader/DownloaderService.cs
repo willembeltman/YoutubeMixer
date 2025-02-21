@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.IO.Compression;
+using System.Linq;
 using System.Reflection.Metadata;
 using YoutubeMixer.ChromeDriverDownloader.Models;
 
@@ -110,7 +111,7 @@ namespace YoutubeMixer.ChromeDriverDownloader
             string driverurl;
             try
             {
-                driverurl = lastKnownDrivers!.channels.Stable.downloads.chromedriver.First().url;
+                driverurl = lastKnownDrivers!.channels.Stable.downloads.chromedriver.First(a => a.platform == "win64").url;
             }
             catch (Exception ex)
             {
