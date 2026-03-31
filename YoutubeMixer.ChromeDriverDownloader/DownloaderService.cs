@@ -1,204 +1,219 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.IO.Compression;
-using System.Linq;
-using System.Reflection.Metadata;
 using YoutubeMixer.ChromeDriverDownloader.Models;
 
-namespace YoutubeMixer.ChromeDriverDownloader
-{
-    public static class DownloaderService
-    {
-        public static async Task<DownloadResult> DownloadTo(string driverPath, string driverVersionPath)
-        {
-            var url = @"https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json";
+namespace YoutubeMixer.ChromeDriverDownloader;
 
-            try
-            {
-                var jsonString = await GetJsonSting(url);
-                var lastKnownDrivers = ConvertToLastKnownDrivers(jsonString);
-                var downloadRevision = GetRevisionFrom(lastKnownDrivers);
-                var currentRevision = GetCurrentRevision(driverVersionPath);
-                if (currentRevision < downloadRevision)
-                {
-                    var driverUrl = GetDriverUrlFrom(lastKnownDrivers);
-                    await DownloadChromeDriver(driverPath, url, driverUrl);
-                    SetCurrentRevision(driverVersionPath, downloadRevision);
-                }
-            }
-            catch (Exception ex)
-            {
+public static class DownloaderService
+{
+    public static async Task<DownloadResult> DownloadTo(string driverPath, string driverVersionPath)
+    {
+        try
+        {
+            var currentVersion = GetChromeVersion();
+            if (currentVersion == null)
+                throw new Exception("Cannot find chrome on your C drive.");
+            var currentDriverVersion = await GetCurrentDriverVersion(driverVersionPath);
+
+            if (currentVersion == currentDriverVersion)
                 return new DownloadResult()
                 {
-                    ErrorMessage = ex.Message,
-                    Exception = ex.InnerException!,
+                    Succes = true,
+                    AlreadyGotDriver = true
                 };
-            }
 
+            var knownDrivers = await DownloadKnownGoodVersions();
+            var driver = knownDrivers.versions.FirstOrDefault(a => a.version == currentVersion);
+            if (driver == null)
+                throw new Exception($"Unknown chrome version is used: {currentVersion}"); 
+            var driverForPlatform = driver.downloads.chromedriver.FirstOrDefault(a => a.platform == "win64");
+            if (driverForPlatform == null)
+                throw new Exception($"Unknown chrome version is used: {currentVersion}");
+            var driverUrl = driverForPlatform.url;
+            await DownloadChromeDriver(driverPath, driverUrl);
+            await SetCurrentDriverVersion(driverVersionPath, currentVersion);
+        }
+        catch (Exception ex)
+        {
             return new DownloadResult()
             {
-                Succes = true
+                ErrorMessage = ex.Message,
+                Exception = ex.InnerException!,
             };
         }
 
-
-        private static long GetCurrentRevision(string driverVersionPath)
+        return new DownloadResult()
         {
-            if (!File.Exists(driverVersionPath)) return -1;
+            Succes = true
+        };
+    }
 
-            using (var stream = File.OpenRead(driverVersionPath))
-            using (var reader = new StreamReader(stream))
+    public static string? GetChromeVersion()
+    {
+        var chromePaths = new[]
+        {
+            @"C:\Program Files\Google\Chrome\Application\chrome.exe",
+            @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+        };
+
+        foreach (var path in chromePaths)
+        {
+            if (File.Exists(path))
             {
-                var versionString = reader.ReadToEnd();
-                var version = Convert.ToInt64(versionString);
-                return version;
+                var versionInfo = FileVersionInfo.GetVersionInfo(path);
+                return versionInfo.FileVersion;
             }
         }
-        private static void SetCurrentRevision(string driverVersionPath, long revision)
+
+        return null;
+    }
+
+    private static async Task<string?> GetCurrentDriverVersion(string driverVersionPath)
+    {
+        if (!File.Exists(driverVersionPath)) return null;
+
+        using (var stream = File.OpenRead(driverVersionPath))
+        using (var reader = new StreamReader(stream))
         {
-            using (var stream = File.OpenWrite(driverVersionPath))
-            using (var reader = new StreamWriter(stream))
+            var version = await reader.ReadToEndAsync();
+            return version;
+        }
+    }
+    private static async Task SetCurrentDriverVersion(string driverVersionPath, string version)
+    {
+        using (var stream = File.OpenWrite(driverVersionPath))
+        using (var writer = new StreamWriter(stream))
+        {
+            await writer.WriteAsync(version);
+        }
+    }
+
+    private static async Task<string> DownloadUrlAsString(string url)
+    {
+        var errorMessage = "There was a problem downloading the new chrome driver: Cannot download version json for chromedriver url.";
+
+        string jsonString;
+        using (HttpClient client = new HttpClient())
+        {
+            try
             {
-                var versionString = revision.ToString();
-                reader.Write(versionString);
+                jsonString = await client.GetStringAsync(url);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(errorMessage, ex);
             }
         }
 
-        private static async Task<string> GetJsonSting(string url)
-        {
-            var errorMessage = "There was a problem downloading the new chrome driver: Cannot download version json for chromedriver url.";
+        if (string.IsNullOrEmpty(jsonString))
+            throw new Exception(errorMessage, new Exception(errorMessage));
 
-            string jsonString;
+        return jsonString;
+    }
+    private static async Task<LastKnownGoodDrivers> DownloadLastKnownGoodVersions()
+    {
+        var url = @"https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json";
+        var jsonString = await DownloadUrlAsString(url);
+        var errorMessage = "There was a problem downloading the new chrome driver: Cannot deserialize version json for chromedriver url.";
+
+        LastKnownGoodDrivers? lastKnownDrivers;
+        try
+        {
+            lastKnownDrivers = JsonConvert.DeserializeObject<LastKnownGoodDrivers>(jsonString);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(errorMessage, ex);
+        }
+
+        if (lastKnownDrivers == null)
+            throw new Exception(errorMessage, new Exception(errorMessage));
+
+        return lastKnownDrivers;
+    }
+    private static async Task<KnownGoodDrivers> DownloadKnownGoodVersions()
+    {
+        var url = @"https://googlechromelabs.github.io/chrome-for-testing/known-good-versions-with-downloads.json";
+        var jsonString = await DownloadUrlAsString(url);
+        var errorMessage = "There was a problem downloading the new chrome driver: Cannot deserialize version json for chromedriver url.";
+
+        KnownGoodDrivers? knownGoodDrivers;
+        try
+        {
+            knownGoodDrivers = JsonConvert.DeserializeObject<KnownGoodDrivers>(jsonString);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(errorMessage, ex);
+        }
+
+        if (knownGoodDrivers == null)
+            throw new Exception(errorMessage, new Exception(errorMessage));
+
+        return knownGoodDrivers;
+    }
+
+    private static string GetDriverUrlFrom(LastKnownGoodDrivers lastKnownDrivers)
+    {
+        var errorMessage = "There was a problem downloading the new chrome driver: Cannot extract chromedriver url from json.";
+
+        string driverurl;
+        try
+        {
+            driverurl = lastKnownDrivers!.channels.Stable.downloads.chromedriver.First(a => a.platform == "win64").url;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(errorMessage, ex);
+        }
+
+        if (string.IsNullOrEmpty(driverurl))
+            throw new Exception(errorMessage, new Exception(errorMessage));
+
+        return driverurl;
+    }
+
+    private static async Task DownloadChromeDriver(string driverPath, string driverUrl)
+    {
+        var errorMessage = $"There was a problem downloading the new chrome driver: Cannot download chromedriver from {driverUrl}.";
+
+        try
+        {
             using (HttpClient client = new HttpClient())
+            using (var stream = await client.GetStreamAsync(driverUrl))
             {
-                try
+                Unzip(driverPath, stream);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(errorMessage, ex);
+        }
+    }
+    private static void Unzip(string driverPath, Stream stream)
+    {
+        using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
+        {
+            EnumerateZipArchive(driverPath, archive);
+        }
+    }
+    private static void EnumerateZipArchive(string driverPath, ZipArchive archive)
+    {
+        // Loop door elk item in het ZIP-archief
+        foreach (var entry in archive.Entries)
+        {
+            if (entry.Name.EndsWith("chromedriver.exe"))
+            {
+                if (File.Exists(driverPath)) { File.Delete(driverPath); }
+
+                // Open de stream van het bestand in het ZIP-archief
+                using (Stream entryStream = entry.Open())
+                using (Stream outputStream = File.OpenWrite(driverPath))
                 {
-                    jsonString = await client.GetStringAsync(url);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(errorMessage, ex);
-                }
-            }
-
-            if (string.IsNullOrEmpty(jsonString))
-                throw new Exception(errorMessage, new Exception(errorMessage));
-
-            return jsonString;
-        }
-        private static LastKnownDrivers ConvertToLastKnownDrivers(string jsonString)
-        {
-            var errorMessage = "There was a problem downloading the new chrome driver: Cannot deserialize version json for chromedriver url.";
-
-            LastKnownDrivers? lastKnownDrivers;
-            try
-            {
-                lastKnownDrivers = JsonConvert.DeserializeObject<LastKnownDrivers>(jsonString);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(errorMessage, ex);
-            }
-
-            if (lastKnownDrivers == null)
-                throw new Exception(errorMessage, new Exception(errorMessage));
-
-            return lastKnownDrivers;
-        }
-        private static string GetDriverUrlFrom(LastKnownDrivers lastKnownDrivers)
-        {
-            var errorMessage = "There was a problem downloading the new chrome driver: Cannot extract chromedriver url from json.";
-
-            string driverurl;
-            try
-            {
-                driverurl = lastKnownDrivers!.channels.Stable.downloads.chromedriver.First(a => a.platform == "win64").url;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(errorMessage, ex);
-            }
-
-            if (string.IsNullOrEmpty(driverurl))
-                throw new Exception(errorMessage, new Exception(errorMessage));
-
-            return driverurl;
-        }
-        private static long GetRevisionFrom(LastKnownDrivers lastKnownDrivers)
-        {
-            var errorMessage = "There was a problem downloading the new chrome driver: Cannot extract chromedriver url from json.";
-
-            long revision;
-            try
-            {
-                revision = lastKnownDrivers!.channels.Stable.revision;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(errorMessage, ex);
-            }
-
-            return revision;
-        }
-        private static async Task DownloadChromeDriver(string driverPath, string url, string driverUrl)
-        {
-            var errorMessage = $"There was a problem downloading the new chrome driver: Cannot download chromedriver from {url}.";
-
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                using (var stream = await client.GetStreamAsync(driverUrl))
-                {
-                    Unzip(driverPath, url, stream);
+                    entryStream.CopyTo(outputStream);
                 }
             }
-            catch (Exception ex)
-            {
-                throw new Exception(errorMessage, ex);
-            }
         }
-        private static void Unzip(string driverPath, string url, Stream stream)
-        {
-            var errorMessage = $"There was a problem downloading the new chrome driver: Cannot open downloaded ziparchive from {url}.";
-            try
-            {
-                using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
-                {
-                    EnumerateZipArchive(driverPath, url, archive);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(errorMessage, ex);
-            }
-        }
-        private static void EnumerateZipArchive(string driverPath, string url, ZipArchive archive)
-        {
-            var errorMessage = $"There was a problem downloading the new chrome driver: Error while reading ziparchive from {url}.";
-
-            try
-            {
-                // Loop door elk item in het ZIP-archief
-                foreach (var entry in archive.Entries)
-                {
-                    if (entry.Name.EndsWith("chromedriver.exe"))
-                    {
-                        if (File.Exists(driverPath)) { File.Delete(driverPath); }
-
-                        // Open de stream van het bestand in het ZIP-archief
-                        using (Stream entryStream = entry.Open())
-                        using (Stream outputStream = File.OpenWrite(driverPath))
-                        {
-                            entryStream.CopyTo(outputStream);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(errorMessage, ex);
-            }
-        }
-
-
     }
 }

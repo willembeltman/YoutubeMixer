@@ -1,4 +1,5 @@
 ﻿using YoutubeMixer.Library.Interfaces;
+using System.ComponentModel;
 
 namespace YoutubeMixer.Controls
 {
@@ -26,6 +27,7 @@ namespace YoutubeMixer.Controls
             PreviousValue = -1;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAudioSource? AudioSource { get; set; }
 
         private double MaxValue { get; set; } = 0.00000001;

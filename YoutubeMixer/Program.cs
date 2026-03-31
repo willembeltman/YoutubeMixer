@@ -6,14 +6,18 @@ namespace YoutubeMixer
     internal static class Program
     {
         /// <summary>
-        ///  The main entry point for the application.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
             var driverPath = Path.Combine(Environment.CurrentDirectory, "chromedriver.exe");
             var driverVersionPath = Path.Combine(Environment.CurrentDirectory, "chromedriverversion.json");
-            var res = DownloaderService.DownloadTo(driverPath, driverVersionPath).Result;
+            var res = DownloaderService.DownloadTo(driverPath, driverVersionPath).GetAwaiter().GetResult();
+            if (res.Succes == false)
+            {
+                throw new Exception(res.ErrorMessage);
+            }
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

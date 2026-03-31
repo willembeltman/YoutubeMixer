@@ -1,10 +1,7 @@
-﻿namespace YoutubeMixer.ChromeDriverDownloader.Models
+﻿namespace YoutubeMixer.ChromeDriverDownloader.Models;
+
+public class ChromeHeadlessShell
 {
-    public class ChromeHeadlessShell
-    {
-        public string platform { get; set; }
-        public string url { get; set; }
-    }
-
-
+    public string platform { get; set; } = string.Empty;
+    public string url { get; set; } = string.Empty;
 }

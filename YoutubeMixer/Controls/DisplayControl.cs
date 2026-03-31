@@ -1,6 +1,7 @@
 ﻿using YoutubeMixer.Library.Interfaces;
 using YoutubeMixer.Library.Models;
 using YoutubeMixer.Properties;
+using System.ComponentModel;
 
 namespace YoutubeMixer.Controls
 {
@@ -34,6 +35,7 @@ namespace YoutubeMixer.Controls
             PreviousTotalDuration = TimeSpan.Zero;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAudioSource? AudioSource { get; set; }
 
         private string? PreviousTitle { get; set; }

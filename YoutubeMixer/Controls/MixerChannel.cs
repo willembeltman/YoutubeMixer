@@ -1,4 +1,5 @@
 ﻿using YoutubeMixer.Library.Interfaces;
+using System.ComponentModel;
 
 namespace YoutubeMixer.UserControls
 {
@@ -14,6 +15,7 @@ namespace YoutubeMixer.UserControls
             VuMeter.InitializeDraw();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAudioSource? AudioSource { get { return VuMeter.AudioSource; } set { VuMeter.AudioSource = value; } }
 
         private void Fader_Scroll(object sender, EventArgs e)

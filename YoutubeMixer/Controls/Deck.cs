@@ -1,6 +1,7 @@
 ﻿using YoutubeMixer.Controls;
 using YoutubeMixer.Library.Interfaces;
 using YoutubeMixer.Library.Models;
+using System.ComponentModel;
 
 namespace YoutubeMixer.UserControls
 {
@@ -48,6 +49,7 @@ namespace YoutubeMixer.UserControls
             buttonSetHotcue.Enabled = AudioSource.IsReady;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAudioSource? AudioSource { get { return DisplayControl.AudioSource; } set { DisplayControl.AudioSource = value; } }
 
         public PitchBendState GetPitchbendState()

@@ -1,4 +1,6 @@
-﻿namespace YoutubeMixer.Controls
+﻿using System.ComponentModel;
+
+namespace YoutubeMixer.Controls
 {
     public class EqualizerControl : Control
     {
@@ -15,8 +17,10 @@
         private Point _dragStartPos = Point.Empty;
         private bool _isDragging = false;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Range { get; set; } = 24;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Value
         {
             get { return _value; }

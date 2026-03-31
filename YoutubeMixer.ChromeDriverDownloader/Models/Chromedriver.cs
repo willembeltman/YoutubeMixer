@@ -1,10 +1,7 @@
-﻿namespace YoutubeMixer.ChromeDriverDownloader.Models
+﻿namespace YoutubeMixer.ChromeDriverDownloader.Models;
+
+public class ChromeDriver
 {
-    public class Chromedriver
-    {
-        public string platform { get; set; }
-        public string url { get; set; }
-    }
-
-
+    public string platform { get; set; }
+    public string url { get; set; }
 }
